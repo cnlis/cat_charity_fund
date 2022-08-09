@@ -37,6 +37,15 @@ pip install -r requirements.txt
 ```
 alembic upgrade head
 ```
+Создать в коорне проекта файл .env и заполнить его следующей информацией
+```
+APP_TITLE=[название сервиса]
+APP_DESCRIPTION=[описание сервиса]
+DATABASE_URL=[строка подключения к базе данных]
+SECRET=[секретный ключ]
+FIRST_SUPERUSER_EMAIL=[почта первого суперпользователя]
+FIRST_SUPERUSER_PASSWORD=[пароль первого суперпользователя]
+```
 
 #### Запуск тестового сервера с использованием Unicorn
 ```
@@ -44,6 +53,6 @@ uvicorn app.main:app --reload
 ```
 
 **Полная спецификация к API приведена в файле openapi.json или по эндпоинту 
-/docs на запущенном сервере**
+/docs на запущенном сервере в формате Swagger**
 
 *Автор: Кирилл Лисицынский (https://github.com/cnlis/)*
