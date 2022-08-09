@@ -22,14 +22,7 @@ async def create_donation(
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(current_user),
 ):
-    # await check_meeting_room_exists(
-    #     reservation.meetingroom_id, session
-    # )
-    # await check_reservation_intersections(
-    #     **reservation.dict(), session=session
-    # )
     new_donation = await donation_crud.create(donation, session, user)
-    await session.refresh(new_donation)
     new_donation = await invest(new_donation, session)
     return new_donation
 

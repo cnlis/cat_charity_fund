@@ -28,7 +28,6 @@ async def create_new_project(
     """Только для суперюзеров."""
     await check_project_name_duplicate(project.name, session)
     project = await charity_project_crud.create(project, session)
-    await session.refresh(project)
     project = await invest(project, session)
     return project
 
@@ -41,8 +40,8 @@ async def create_new_project(
 async def get_all_projects(
         session: AsyncSession = Depends(get_async_session),
 ):
-    all_rooms = await charity_project_crud.get_multi(session)
-    return all_rooms
+    all_projects = await charity_project_crud.get_multi(session)
+    return all_projects
 
 
 @router.patch(
