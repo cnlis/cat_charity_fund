@@ -21,7 +21,6 @@ class CharityProjectUpdate(CharityProjectCreate):
 
     @validator('name', 'full_amount', 'description')
     def check_fields_is_none(cls, value):
-        print(value)
         if not value:
             raise ValueError(
                 'Название и описание проекта не должны быть пустыми'
