@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 
 from fastapi.encoders import jsonable_encoder
@@ -54,10 +55,15 @@ class CRUDBase:
     ):
         obj_data = jsonable_encoder(db_obj)
         update_data = obj_in.dict(exclude_unset=True)
-
         for field in obj_data:
             if field in update_data:
                 setattr(db_obj, field, update_data[field])
+        # если новая полная стоимость проекта равна вложенным средствам
+        # обозначить как полностью оплаченный проект
+        full_amount = update_data.get('full_amount')
+        if full_amount and full_amount == db_obj.invested_amount:
+            db_obj.fully_invested = True
+            db_obj.close_date = datetime.now()
         session.add(db_obj)
         await session.commit()
         await session.refresh(db_obj)
